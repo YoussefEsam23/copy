@@ -12,7 +12,7 @@ const projectSchema = z.object({
 });
 
 const initialProjects = [
-  { id: 1, name: 'Project Atelier', description: 'Brand ecosystem and design system development for the 2024 launch.', status: 'ACTIVE', deadline: 'Oct 24', isPrivate: false },
+  { id: 1, name: 'Project 1', description: 'Brand ecosystem and design system development for the 2024 launch.', status: 'ACTIVE', deadline: 'Oct 24', isPrivate: false },
   { id: 2, name: 'Cyanide Sprint', description: 'High-speed prototyping phase for the decentralized asset marketplace.', status: 'ON HOLD', deadline: 'Nov 12', isPrivate: true },
   { id: 3, name: 'Digital Transformation', description: 'Migrating legacy internal tools to the new unified Atelier cloud infrastructure.', status: 'ACTIVE', deadline: 'Dec 01', isPrivate: false }
 ];
@@ -142,12 +142,12 @@ const ProjectDashboardMock = () => {
           <div className="header-logo-container">
             <span style={{color: 'var(--btn-text)', fontWeight: 'bold'}}>A</span>
           </div>
-          <h1 className="app-title" style={{color: 'var(--accent-color)'}}>Atelier</h1>
+          <h1 className="app-title" style={{color: 'var(--accent-color)'}}>Sprint Sight</h1>
         </div>
         <div className="header-center">
           <div className="search-bar-container">
             <span className="search-icon">🔍</span>
-            <input type="search" placeholder="Search project atelier..." className="search-input" />
+            <input type="search" placeholder="Search project..." className="search-input" />
           </div>
         </div>
         

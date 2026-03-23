@@ -51,7 +51,7 @@ const BacklogViewMock = () => {
       });
     } else {
       setEditingStoryId(null);
-      setStoryFormData({ title: '', description: '', status: 'To do', priority: 'Medium', sprintId: '' });
+      setStoryFormData({ title: '', status: 'To do', priority: 'Medium', sprintId: '' });
     }
     setFormErrors({}); setIsStoryModalOpen(true); setOpenMenuId(null);
   };
@@ -83,7 +83,6 @@ const BacklogViewMock = () => {
 
   return (
     <>
-      {/* --- BACKLOG LIST VIEW --- */}
       {!selectedStory && (
         <div className="content-left">
           <div className="page-header">
@@ -110,7 +109,6 @@ const BacklogViewMock = () => {
                   </div>
                 </div>
                 
-                {/* KEBAB MENU */}
                 <div className="menu-container">
                   <button className="options-btn" onClick={(e) => handleMenuClick(e, story.id)}>⋮</button>
                   {openMenuId === story.id && (
@@ -133,7 +131,6 @@ const BacklogViewMock = () => {
         </div>
       )}
 
-      {/* --- STORY DETAILS VIEW (Tasks placeholder) --- */}
       {selectedStory && (
         <div className="content-left">
            <button style={{background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: '600'}} onClick={() => setSelectedStory(null)}>
@@ -144,14 +141,12 @@ const BacklogViewMock = () => {
         </div>
       )}
 
-      {/* --- PREMIUM CREATE/EDIT MODAL --- */}
       {isStoryModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h2 className="modal-title">{editingStoryId ? 'Edit User Story' : 'Create New User Story'}</h2>
             
             <form className="modal-form" onSubmit={handleSaveStory}>
-              
               <div className="form-group">
                 <label>Story Title</label>
                 <input 
@@ -177,7 +172,11 @@ const BacklogViewMock = () => {
               <div className="form-row">
                 <div className="form-group">
                   <label>Status</label>
-                  <select className="modal-input" value={storyFormData.status} onChange={(e) => setStoryFormData({...storyFormData, status: e.target.value})}>
+                  <select 
+                    className="modal-input select-input" 
+                    value={storyFormData.status} 
+                    onChange={(e) => setStoryFormData({...storyFormData, status: e.target.value})}
+                  >
                     <option>To do</option>
                     <option>In Progress</option>
                     <option>Completed</option>
@@ -186,7 +185,11 @@ const BacklogViewMock = () => {
                 
                 <div className="form-group">
                   <label>Priority</label>
-                  <select className="modal-input" value={storyFormData.priority} onChange={(e) => setStoryFormData({...storyFormData, priority: e.target.value})}>
+                  <select 
+                    className="modal-input select-input" 
+                    value={storyFormData.priority} 
+                    onChange={(e) => setStoryFormData({...storyFormData, priority: e.target.value})}
+                  >
                     <option>Low</option>
                     <option>Medium</option>
                     <option>High</option>
@@ -197,7 +200,11 @@ const BacklogViewMock = () => {
               
               <div className="form-group">
                 <label>Assign to Sprint</label>
-                <select className="modal-input" value={storyFormData.sprintId} onChange={(e) => setStoryFormData({...storyFormData, sprintId: e.target.value})}>
+                <select 
+                  className="modal-input select-input" 
+                  value={storyFormData.sprintId} 
+                  onChange={(e) => setStoryFormData({...storyFormData, sprintId: e.target.value})}
+                >
                   <option value="">Backlog (Unassigned)</option>
                   {projectSprints.map(sprint => (
                     <option key={sprint.id} value={sprint.id}>{sprint.name}</option>
@@ -209,7 +216,6 @@ const BacklogViewMock = () => {
                 <button type="button" className="modal-btn cancel-btn" onClick={() => setIsStoryModalOpen(false)}>Cancel</button>
                 <button type="submit" className="modal-btn save-btn">{editingStoryId ? 'Save Changes' : 'Create Story'}</button>
               </div>
-
             </form>
           </div>
         </div>

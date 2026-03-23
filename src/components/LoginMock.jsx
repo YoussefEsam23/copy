@@ -5,6 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import '../styling/Login.css';
 
+// --- NEW: IMPORT IMAGES FROM ASSETS ---
+// Assuming your folder structure is: src/assets/ and src/components/LoginMock.jsx
+import logoLight from '/sprint-sight-logo.png';
+import logoDark from '/sprint-sight-logo-dark.png';
+
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
@@ -30,6 +35,10 @@ const LoginMock = () => {
     resolver: zodResolver(isLoginView ? loginSchema : signUpSchema),
     mode: "onChange"    
   });
+
+  // --- NEW: LOGIC TO SELECT THE CORRECT LOGO ---
+  const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const logoSrc = isDark ? logoDark : logoLight;
 
   useEffect(() => {
     const existingData = localStorage.getItem('sprintSightUser');
@@ -76,20 +85,12 @@ const LoginMock = () => {
     setMessage('');
     setIsError(false);
 
-    // MOCK API DELAY: Simulates a 1-second network request
     setTimeout(() => {
       try {
         if (isLoginView) {
-          /* --- COMMENTED OUT REAL API ---
-          const response = await fetch('https://sprintsight-back.onrender.com/login', { ... });
-          */
-
-          // --- MOCK LOGIN LOGIC ---
           const storedData = localStorage.getItem('sprintSightUser');
           const dbUser = JSON.parse(storedData);
 
-          // Let's just allow any username/password combination for testing the flow easily
-          // OR you can strict check: if (data.username === dbUser.username && data.password === dbUser.password)
           if (data.username && data.password) { 
             localStorage.setItem('sprintSightToken', 'fake-mock-jwt-token-12345'); 
             setIsError(false);
@@ -101,11 +102,6 @@ const LoginMock = () => {
           }
 
         } else {
-          /* --- COMMENTED OUT REAL API ---
-          const response = await fetch('http://localhost:5000/api/signup', { ... });
-          */
-
-          // --- MOCK SIGNUP LOGIC ---
           const newUser = { username: data.username, password: data.password };
           localStorage.setItem('sprintSightUser', JSON.stringify(newUser));
           
@@ -121,7 +117,7 @@ const LoginMock = () => {
       } finally {
         setIsLoading(false); 
       }
-    }, 1000); // 1 second fake delay
+    }, 1000);
   };
 
   const toggleView = () => {
@@ -136,7 +132,6 @@ const LoginMock = () => {
         {getThemeIcon()}
       </button>
 
-      {/* Animated Background Shapes */}
       <div className="bg-shapes">
         <div className="shape shape-1"></div>
         <div className="shape shape-2"></div>
@@ -146,8 +141,9 @@ const LoginMock = () => {
 
       <div className="login-container">
         <div className="logo-section">
+          {/* --- UPDATED: USE logoSrc VARIABLE --- */}
           <img 
-            src="/sprint-sight-logo.png" 
+            src={logoSrc} 
             alt="Sprint Sight Logo" 
             className="logo-image" 
             onError={(e) => { e.target.onerror = null; }}
