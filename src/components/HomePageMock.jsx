@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './HomePage.css';
+import '../styling/HomePage.css';
 
 import BacklogViewMock from './BacklogViewMock';
 import SprintsViewMock from './SprintsViewMock';
@@ -114,7 +114,7 @@ const HomePageMock = () => {
         {/* --- SCROLLABLE CONTENT AREA --- */}
         <main className="main-content">
           <div className="content-glow"></div> 
-          <div style={{zIndex: 1, width: '100%', display: 'flex', justifyContent: 'center'}}>
+          <div key={activeTab} className="tab-content-wrapper">
             {activeTab === 'backlog' && <BacklogViewMock />}
             {activeTab === 'sprints' && <SprintsViewMock />}
           </div>

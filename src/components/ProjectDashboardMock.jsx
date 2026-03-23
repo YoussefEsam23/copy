@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import './ProjectDashboard.css';
+import '../styling/ProjectDashboard.css';
 
 const projectSchema = z.object({
   name: z.string().min(3, "Project name must be at least 3 characters"),
@@ -187,8 +187,8 @@ const ProjectDashboardMock = () => {
         </div>
 
         <div className="project-list">
-          {projects.map((project) => (
-            <div key={project.id} className="project-card" style={{ position: 'relative', zIndex: openMenuId === project.id ? 50 : 1 }} onClick={() => handleProjectClick(project.id)}>
+          {projects.map((project, index) => (
+            <div key={project.id} className="project-card" style={{ position: 'relative', zIndex: openMenuId === project.id ? 50 : 1, animationDelay: `${0.2 + (index * 0.1)}s` }} onClick={() => handleProjectClick(project.id)}>
               <div className="project-icon">
                  {project.isPrivate ? '🔒' : '📁'}
               </div>

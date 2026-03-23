@@ -8,6 +8,7 @@
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-sidebar); /* Matches the premium dark sidebar look */
   z-index: 20;
+  animation: slideDownHeader 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 .header-left {
@@ -154,6 +155,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 3rem;
+  animation: fadeInUp var(--transition-smooth) 0.1s both;
 }
 
 .dashboard-title {
@@ -177,12 +179,16 @@
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition: transform var(--transition-bounce), box-shadow var(--transition-fast), background-color var(--transition-fast);
 }
 
 .new-project-btn:hover {
   background-color: var(--accent-hover);
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+}
+.new-project-btn:active {
+  transform: scale(0.95);
 }
 
 /* List Header */
@@ -194,6 +200,7 @@
   font-weight: 700;
   color: var(--text-muted);
   letter-spacing: 1px;
+  animation: fadeInUp var(--transition-smooth) 0.2s both;
 }
 
 .sort-btn {
@@ -220,13 +227,15 @@
   box-shadow: var(--card-shadow);
   border: 1px solid var(--border-color);
   cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s;
+  transition: transform var(--transition-bounce), border-color var(--transition-fast), box-shadow var(--transition-fast);
   backdrop-filter: blur(16px);
+  animation: fadeInUp var(--transition-smooth) both; /* Delay handled inline */
 }
 
 .project-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--text-muted);
+  transform: translateY(-4px) scale(1.01);
+  border-color: var(--accent-color);
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.15);
 }
 
 .project-icon {
@@ -240,6 +249,12 @@
   align-items: center;
   font-size: 1.5rem;
   color: var(--text-main);
+  transition: color var(--transition-fast);
+}
+
+.project-card:hover .project-icon {
+  color: var(--accent-color);
+  animation: pulseGlow 2s infinite;
 }
 
 .project-info { flex-grow: 1; }

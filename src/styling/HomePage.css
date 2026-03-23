@@ -1,45 +1,4 @@
-/* --- PREMIUM THEME PALETTES (Dark Blue & Yellow Accent) --- */
-:root {
-  /* Light Mode */
-  --bg-main: #f3f4f6;
-  --bg-sidebar: #ffffff;
-  --bg-card: #ffffff;
-  --bg-hover: #e5e7eb;
-  
-  --text-main: #111827;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-
-  --primary-color: #1e3a8a; /* Dark Blue */
-  --accent-color: #f59e0b; /* Yellow Accent */
-  --accent-hover: #d97706;
-  
-  --btn-text: #ffffff;
-  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  --glow-display: none;
-}
-
-[data-theme="dark"] {
-  /* Cryptix Dark Mode Vibe */
-  --bg-main: #0d1117; /* Deep almost-black space */
-  --bg-sidebar: #131820; /* Slightly elevated sidebar */
-  --bg-card: rgba(22, 27, 34, 0.6); /* Translucent cards */
-  --bg-hover: rgba(255, 255, 255, 0.05);
-  
-  --text-main: #e6edf3;
-  --text-muted: #8b949e;
-  --border-color: rgba(240, 246, 252, 0.1); /* Ultra-thin borders */
-
-  --primary-color: #f59e0b; 
-  --accent-color: #f59e0b; 
-  --accent-hover: #fbbf24;
-  
-  --btn-text: #0d1117; /* Dark text on bright yellow buttons */
-  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --glow-display: block;
-}
-
-/* --- Global Layout --- */
+/* --- Global Theme Variables moved to index.css --- */
 .homepage-wrapper {
   display: flex; height: 100vh; width: 100vw;
   background-color: var(--bg-main);
@@ -54,6 +13,12 @@
   width: 250px; background-color: var(--bg-sidebar); border-right: 1px solid var(--border-color);
   display: flex; flex-direction: column; justify-content: space-between;
   transition: 0.3s ease; z-index: 10;
+  animation: slideRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+@keyframes slideRight {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 .sidebar-header { padding: 1.5rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border-color); }
 .sidebar-logo { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent-color), #fcd34d); border-radius: 8px; display: flex; justify-content: center; align-items: center; color: var(--btn-text); font-weight: 800; font-size: 1.2rem; }
@@ -62,19 +27,29 @@
 
 .sidebar-nav { padding: 1.5rem 0; flex-grow: 1; }
 .sidebar-nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.2rem;}
+
+.sidebar-nav ul li { animation: slideRight var(--transition-smooth) both; }
+.sidebar-nav ul li:nth-child(1) { animation-delay: 0.1s; }
+.sidebar-nav ul li:nth-child(2) { animation-delay: 0.15s; }
+.sidebar-nav ul li:nth-child(3) { animation-delay: 0.2s; }
+.sidebar-nav ul li:nth-child(4) { animation-delay: 0.25s; }
+.sidebar-nav ul li:nth-child(5) { animation-delay: 0.3s; }
+.sidebar-nav ul li:nth-child(6) { animation-delay: 0.35s; }
+
 .nav-item {
   width: 90%; margin: 0 auto; background: transparent; border: none; padding: 10px 1.2rem; border-radius: 8px;
   color: var(--text-muted); font-size: 0.95rem; font-weight: 500; text-align: left;
   cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.2s;
 }
-.nav-item:hover { color: var(--text-main); background-color: var(--bg-hover); }
+.nav-item:hover { color: var(--text-main); background-color: var(--bg-hover); transform: translateX(5px); }
 .nav-item.active { color: var(--text-main); background-color: var(--bg-hover); font-weight: 600; }
 .nav-item.active .icon { color: var(--accent-color); }
 .nav-divider { height: 1px; background-color: var(--border-color); margin: 1rem 1.5rem; }
 
 .sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--border-color); }
-.manage-btn { width: 100%; padding: 12px 15px; background-color: var(--bg-hover); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.9rem;}
-.manage-btn:hover { background-color: var(--accent-color); color: var(--btn-text); border-color: var(--accent-color); }
+.manage-btn { width: 100%; padding: 12px 15px; background-color: var(--bg-hover); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform var(--transition-bounce), background-color var(--transition-fast), color var(--transition-fast); font-size: 0.9rem;}
+.manage-btn:hover { background-color: var(--accent-color); color: var(--btn-text); border-color: var(--accent-color); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); }
+.manage-btn:active { transform: scale(0.95); }
 
 /* --- NEW: Main Panel Structure --- */
 .main-panel {
@@ -95,6 +70,7 @@
   border-bottom: 1px solid var(--border-color);
   background: transparent;
   z-index: 20;
+  animation: slideDownHeader 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 .breadcrumb {
@@ -137,6 +113,15 @@
   overflow-y: auto; 
   display: flex; 
   justify-content: center; 
+  animation: fadeInOpacity var(--transition-smooth) 0.2s both;
+}
+
+.tab-content-wrapper {
+  animation: fadeInOpacity var(--transition-fast) both;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
 }
 
 .content-glow {
@@ -168,14 +153,14 @@
 .story-card {
   background: var(--bg-card); border-radius: 12px; padding: 1.5rem; display: flex; align-items: center;
   box-shadow: var(--card-shadow); border: 1px solid var(--border-color); cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s; backdrop-filter: blur(16px);
+  transition: transform var(--transition-bounce), border-color var(--transition-fast), box-shadow var(--transition-fast); backdrop-filter: blur(16px);
 }
-.story-card:hover { transform: translateY(-2px); border-color: var(--text-muted); }
+.story-card:hover { transform: translateY(-4px) scale(1.01); border-color: var(--accent-color); box-shadow: 0 8px 24px rgba(245, 158, 11, 0.15); }
 
 .story-id { width: 70px; color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
 .story-info { flex-grow: 1; }
 .story-title { font-size: 1.1rem; color: var(--text-main); margin: 0 0 0.4rem 0; font-weight: 500; }
-.story-desc { margin: 0; color: var(--text-muted); font-size: 0.9rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;}
+.story-desc { margin: 0; color: var(--text-muted); font-size: 0.9rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;}
 
 /* --- Modals & Dropdowns --- */
 /* --- Modals & Dropdowns --- */

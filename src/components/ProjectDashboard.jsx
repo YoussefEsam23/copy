@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import './ProjectDashboard.css';
+import '../styling/ProjectDashboard.css';
 
 const projectSchema = z.object({
   name: z.string().min(3, "Project name must be at least 3 characters"),

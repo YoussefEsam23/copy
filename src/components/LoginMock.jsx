@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import './Login.css';
+import '../styling/Login.css';
 
 const loginSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -22,6 +22,8 @@ const LoginMock = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
+  const [theme, setTheme] = useState(localStorage.getItem('sprintSightTheme') || 'system');
+  
   const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -36,6 +38,38 @@ const LoginMock = () => {
       localStorage.setItem('sprintSightUser', JSON.stringify(fakeDatabaseUser));
     }
   }, []);
+
+  useEffect(() => {
+    const applyTheme = (selectedTheme) => {
+      if (selectedTheme === 'system') {
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.setAttribute('data-theme', systemDark ? 'dark' : 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', selectedTheme);
+      }
+    };
+
+    applyTheme(theme);
+    localStorage.setItem('sprintSightTheme', theme);
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => { if (theme === 'system') applyTheme('system'); };
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [theme]);
+
+  const cycleTheme = () => {
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('system');
+    else setTheme('light');
+  };
+
+  const getThemeIcon = () => {
+    if (theme === 'light') return '☀️';
+    if (theme === 'dark') return '🌙';
+    return '💻';
+  };
 
   const onSubmit = async (data) => {
     setIsLoading(true); 
@@ -98,6 +132,18 @@ const LoginMock = () => {
 
   return (
     <div className="login-wrapper">
+      <button className="login-theme-toggle" onClick={cycleTheme} title={`Theme: ${theme}`}>
+        {getThemeIcon()}
+      </button>
+
+      {/* Animated Background Shapes */}
+      <div className="bg-shapes">
+        <div className="shape shape-1"></div>
+        <div className="shape shape-2"></div>
+        <div className="shape shape-3"></div>
+        <div className="shape shape-4"></div>
+      </div>
+
       <div className="login-container">
         <div className="logo-section">
           <img 
@@ -107,7 +153,7 @@ const LoginMock = () => {
             onError={(e) => { e.target.onerror = null; }}
           />
           <h1 className="app-title">Sprint Sight</h1>
-          <h3 style={{ color: '#1a2238', marginTop: '1rem', fontWeight: '600' }}>
+          <h3 style={{ color: 'var(--text-main)', marginTop: '1rem', fontWeight: '600', transition: 'color var(--transition-fast)' }}>
             {isLoginView ? 'Welcome Back' : 'Create an Account'}
           </h3>
         </div>
