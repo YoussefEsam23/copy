@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './LoginMock';
+import Login from './Login';
 import HomePage from './HomePageMock';
 import ProjectDashboard from './ProjectDashboardMock';
 import ProtectedRoute from './ProtectedRoute';
