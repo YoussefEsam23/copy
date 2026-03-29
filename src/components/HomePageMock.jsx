@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../styling/HomePage.css';
-
+import SettingsViewMock from './SettingsViewMock';
 import BacklogViewMock from './BacklogViewMock';
 import SprintsViewMock from './SprintsViewMock';
 
@@ -76,7 +76,11 @@ const HomePageMock = () => {
               <li className="nav-divider"></li>
               <li><button className="nav-item"><span className="icon">!</span> Market Issues</button></li>
               <li><button className="nav-item"><span className="icon">📖</span> Assets Wiki</button></li>
-              <li><button className="nav-item"><span className="icon">⚙</span> Settings</button></li>
+              <li>
+                <button 
+                  className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => setActiveTab('settings')}><span className="icon">⚙️</span> Settings
+                </button>
+              </li>           
             </ul>
           </nav>
         </div>
